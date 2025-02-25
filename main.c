@@ -6,7 +6,7 @@
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 13:25:51 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/02/13 17:46:47 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/02/25 20:59:37 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,10 @@ int	main(int ac, char *dc[])
 	make_stack(&a, dc, 0);
 	if (not_sorted(&a))
 	{
-		optimize(&a, &b, 0, 0);
-		sorting(&a, &b);
+		if (ft_lstsize(a) <= 5)
+			handle_five(&a, &b);
+		else
+			sort(&a, &b);
 	}
 	ft_lstclear(&a);
 }

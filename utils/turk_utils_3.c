@@ -1,48 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   turk_utils_3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/14 13:25:49 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/01/14 14:47:30 by moel-oua         ###   ########.fr       */
+/*   Created: 2025/02/25 20:48:36 by moel-oua          #+#    #+#             */
+/*   Updated: 2025/02/25 21:09:51 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
-
-t_node	*get_max(t_node *stack)
-{
-	t_node	*current;
-	t_node	*tmp;
-
-	current = stack;
-	tmp = current;
-	while (current)
-	{
-		if (current->value > tmp->value)
-			tmp = current;
-		current = current->next;
-	}
-	return (tmp);
-}
-
-t_node	*get_min(t_node *stack)
-{
-	t_node	*current;
-	t_node	*tmp;
-
-	current = stack;
-	tmp = current;
-	while (current)
-	{
-		if (current->value < tmp->value)
-			tmp = current;
-		current = current->next;
-	}
-	return (tmp);
-}
 
 int	not_sorted(t_node **stack)
 {
@@ -76,18 +44,16 @@ void	set_position(t_node *stack)
 	}
 }
 
-int	max_t_node_positon(t_node *stack)
+int	min(int a, int b)
 {
-	t_node	*tmp;
-	t_node	*max;
+	if (a < b)
+		return (a);
+	return (b);
+}
 
-	tmp = stack;
-	max = tmp;
-	while (tmp)
-	{
-		if (tmp->value > max->value)
-			max = tmp;
-		tmp = tmp->next;
-	}
-	return (max->index);
+int	max(int a, int b)
+{
+	if (a > b)
+		return (a);
+	return (b);
 }

@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "push_swap.h": "c",
+        "stdio.h": "c",
+        "type_traits": "c",
+        "checker.h": "c"
+    }
+}

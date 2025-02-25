@@ -6,7 +6,7 @@
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 15:48:18 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/02/17 10:46:27 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/02/25 21:17:26 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@
 typedef struct s_stack
 {
 	int					value;
-	int					rank;
+	struct s_stack		*target;
+	int					cost;
 	int					index;
 	struct s_stack		*next;
 }						t_node;
@@ -30,7 +31,6 @@ t_node	*get_max(t_node *stack);
 t_node	*get_min(t_node *stack);
 int		not_sorted(t_node **stack);
 void	set_position(t_node *stack);
-int		max_t_node_positon(t_node *stack);
 char	**ft_split(char *str, char c, int i, int j);
 long	ft_atoi(char *str, int i, char **split, t_node **stack);
 int		dup_checker(t_node *a, int n);
@@ -55,8 +55,25 @@ void	sort_three(t_node **a);
 void	sort_four(t_node **a, t_node **b);
 void	sort_five(t_node **a, t_node **b);
 void	handle_five(t_node **a, t_node **b);
-void	optimize(t_node **a, t_node **b, int chunk, int i);
-void	sorting(t_node **a, t_node **b);
 char	**free_the_split_v2(char **res);
+void	from_a_to_b(t_node **a, t_node **b);
+void	sort(t_node **stack_a, t_node **stack_b);
+void	other_cases_a(t_node **a, t_node **b, t_node *low);
+t_node	*biggest_node(t_node *stack);
+void	make_low_target(t_node *node, t_node *stack);
+void	assign_a_targets(t_node **stack_a, t_node **b);
+t_node	*smallest_node(t_node **stack);
+void	push_costs(t_node **a, t_node **b);
+void	rev_rotate_a(t_node **a, t_node **b, t_node *low);
+void	rotate_a(t_node **a, t_node **b, t_node *low);
+t_node	*lowest_cost(t_node **stack);
+void	get_rotations(t_node **stack, t_node *node, int *arry);
+void	top_b_target(t_node *node, t_node **b);
+int		not_sorted(t_node **stack);
+void	set_position(t_node *stack);
+int		min(int a, int b);
+int		max(int a, int b);
+t_node	*get_max(t_node *stack);
+t_node	*get_min(t_node *stack);
 
 #endif

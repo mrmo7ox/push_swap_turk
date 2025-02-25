@@ -6,7 +6,7 @@
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 13:25:22 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/01/18 16:05:25 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/02/25 16:48:24 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	pa(t_node **a, t_node **b, int print)
 	*b = first_b->next;
 	first_b->next = first_a;
 	*a = first_b;
+	set_position(*a);
 	if (print)
 		write(1, "pa\n", 3);
 }
@@ -40,6 +41,7 @@ void	pb(t_node **b, t_node **a, int print)
 	*a = first->next;
 	first->next = first_b;
 	*b = first;
+	set_position(*b);
 	if (print)
 		write(1, "pb\n", 3);
 }

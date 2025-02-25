@@ -6,17 +6,20 @@
 #    By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/18 15:57:11 by moel-oua          #+#    #+#              #
-#    Updated: 2025/02/17 10:46:23 by moel-oua         ###   ########.fr        #
+#    Updated: 2025/02/25 21:20:27 by moel-oua         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror 
-SRCS = ./main.c ./utils/utils.c ./utils/ft_split.c ./utils/ft_atoi.c \
+SRCS = ./main.c ./utils/ft_split.c ./utils/ft_atoi.c \
        ./utils/error.c ./utils/ft_lstnew.c ./utils/ft_lstadd_back.c \
        ./utils/ft_lstsize.c ./utils/ft_lstlast.c \
        ./rules/swap.c ./rules/rotate.c ./rules/reverse_rotate.c \
-       ./rules/push.c ./rules/five_or_less.c ./rules/sorting.c
+       ./rules/push.c ./rules/five_or_less.c ./rules/sorting.c \
+	   ./utils/turk_utils_1.c ./utils/turk_utils_2.c ./utils/turk_utils_3.c \
+	   ./utils/five_utils.c 
+
 
 BONUS = ./bonus/checker.c \
 		./bonus/gnl/get_next_line.c \
@@ -33,7 +36,8 @@ BONUS = ./bonus/checker.c \
 		./bonus/utils/ft_lstsize_bonus.c  \
 		./bonus/utils/ft_split_bonus.c  \
 		./bonus/utils/ft_strncmp.c \
-		./bonus/utils/utils_bonus.c
+		./bonus/utils/utils_bonus.c \
+		./bonus/fixed.c
 
 OBJECTS = $(SRCS:.c=.o)
 BONUS_OBJECTS = $(BONUS:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 13:25:37 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/01/19 12:22:54 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/02/25 18:04:23 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,22 @@ void	ft_lstclear_bonus(t_node **stack)
 	while (current)
 	{
 		tmp = current->next;
+		free(current);
+		current = tmp;
+	}
+	*stack = (NULL);
+}
+
+void	ft_lstclear_ops_bonus(t_ops **stack)
+{
+	t_ops	*current;
+	t_ops	*tmp;
+
+	current = *stack;
+	while (current)
+	{
+		tmp = current->next;
+		free(current->content);
 		free(current);
 		current = tmp;
 	}

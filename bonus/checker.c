@@ -6,7 +6,7 @@
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 16:03:32 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/02/17 10:45:32 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/02/25 21:12:06 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,26 +89,24 @@ void	execute(char *str, t_node **a, t_node **b)
 		rrr_bonus(a, b, 0);
 }
 
-void	while_loop(t_node **a, t_node **b)
+void	while_loop(t_node **a, t_node **b, t_ops **instructions)
 {
 	char	*str;
 
+	(void)a;
+	(void)b;
 	while (1)
 	{
 		str = get_next_line(0);
 		if (!str)
 			return ;
-		else if (!verify_bonus(str))
+		if (!verify_bonus(str))
 		{
-			free(str);
-			write(1, "Error\n", 6);
-			ft_lstclear_bonus(a);
-			ft_lstclear_bonus(b);
-			exit(1);
+			free_all(a, b, instructions);
+			(write(2, "Error\n", 6), exit(1));
 		}
 		else
-			execute(str, a, b);
-		free(str);
+			ft_lstadd_back_ops_bonus(instructions, ft_lstnew_ops_bonus(str));
 	}
 }
 
@@ -116,19 +114,21 @@ int	main(int ac, char *dc[])
 {
 	t_node	*a;
 	t_node	*b;
+	t_ops	*instructions;
 
 	a = NULL;
 	b = NULL;
+	instructions = NULL;
 	if (ac == 1)
 		return (0);
 	if (ac == 2 && dc[1][0] == '\0')
 		(write(2, "Error\n", 6), exit(1));
 	make_stack_bonus(&a, dc, 0);
-	while_loop(&a, &b);
+	while_loop(&a, &b, &instructions);
+	verify_and_exec(&a, &b, &instructions);
 	if (!not_sorted_bonus(&a) && !b)
 		write(1, "OK\n", 3);
 	else
 		write(1, "KO\n", 3);
-	ft_lstclear_bonus(&a);
-	ft_lstclear_bonus(&b);
+	free_all(&a, &b, &instructions);
 }

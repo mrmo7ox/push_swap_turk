@@ -6,70 +6,107 @@
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 13:25:30 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/02/13 17:47:28 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/02/25 21:17:48 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
-static int	ft_sqrt(int n)
+void	from_a_to_b(t_node **a, t_node **b)
 {
-	int	i;
+	t_node	*low;
+	int		median_a;
+	int		median_b;
 
-	i = 1;
-	if (n <= 0)
-		return (0);
-	while (i * i <= n)
-		i++;
-	return (i - 1);
-}
-
-void	optimize(t_node **a, t_node **b, int chunk, int i)
-{
-	t_node	*tmp;
-	int		size;
-
-	size = ft_lstsize(*a);
-	if (size <= 5)
-		handle_five(a, b);
-	chunk = ft_sqrt(size);
-	while (*a)
+	low = lowest_cost(a);
+	median_a = ft_lstsize(*a) / 2;
+	median_b = ft_lstsize(*b) / 2;
+	while (low->index || low->target->index)
 	{
-		tmp = *a;
-		if (tmp->rank <= i)
-		{
-			pb(b, a, 1);
-			i++;
-		}
-		else if (tmp->rank <= i + chunk)
-		{
-			pb(b, a, 1);
-			rb(b, 1);
-			i++;
-		}
+		if (low->index >= median_a && low->target->index >= median_b)
+			rev_rotate_a(a, b, low);
+		else if (low->index < median_a && low->target->index < median_b)
+			rotate_a(a, b, low);
 		else
-			ra(a, 1);
+			other_cases_a(a, b, low);
 	}
+	pb(b, a, 1);
 }
 
-void	sorting(t_node **a, t_node **b)
+void	from_b_to_a(t_node *node, t_node **a, t_node **b)
 {
-	int	t_node_position;
+	int	median_a;
 
+	median_a = ft_lstsize(*a) / 2;
+	if (node->target->index < median_a)
+		while (node->target->index)
+			ra(a, 1);
+	else
+		while (node->target->index)
+			rra(a, 1);
+	pa(a, b, 1);
+}
+
+void	top_b_target(t_node *node, t_node **b)
+{
+	t_node	*current;
+	t_node	*lowest;
+
+	current = *b;
+	lowest = smallest_node(b);
+	node->target = NULL;
+	while (current)
+	{
+		if (current->value > node->value)
+		{
+			if (node->target == NULL)
+				node->target = current;
+			else
+			{
+				if (node->value - node->target->value
+					< node->value - current->value)
+					node->target = current;
+			}
+		}
+		current = current->next;
+	}
+	if (node->target == NULL)
+		node->target = lowest;
+}
+
+void	make_lowest_first(t_node **a)
+{
+	t_node	*node;
+	int		median;
+
+	median = ft_lstsize(*a) / 2;
+	node = smallest_node(a);
+	if (node->index <= median)
+		while (node->index)
+			ra(a, 1);
+	else
+		while (node->index)
+			rra(a, 1);
+}
+
+void	sort(t_node **a, t_node **b)
+{
+	t_node	*current;
+
+	pb(b, a, 1);
+	pb(b, a, 1);
+	while (ft_lstsize(*a) > 3)
+	{
+		assign_a_targets(a, b);
+		push_costs(a, b);
+		from_a_to_b(a, b);
+	}
+	sort_three(a);
 	while (ft_lstsize(*b))
 	{
-		set_position(*b);
-		t_node_position = max_t_node_positon(*b);
-		if (t_node_position < (ft_lstsize(*b) / 2))
-		{
-			while ((*b)->index != t_node_position)
-				rb(b, 1);
-		}
-		else
-		{
-			while ((*b)->index != t_node_position)
-				rrb(b, 1);
-		}
-		pa(a, b, 1);
+		current = *b;
+		top_b_target(current, a);
+		from_b_to_a(current, a, b);
 	}
+	make_lowest_first(a);
 }

@@ -6,7 +6,7 @@
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 14:06:26 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/01/18 15:16:28 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/02/25 20:43:22 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,6 @@ void	ft_lstadd_back(t_node **stack, t_node *new)
 	tmp = *stack;
 	if (!stack || !new)
 		return ;
-	while (tmp)
-	{
-		if (tmp->value > new->value)
-			tmp->rank++;
-		else
-			new->rank++;
-		tmp = tmp->next;
-	}
 	if (*stack == NULL)
 	{
 		*stack = new;

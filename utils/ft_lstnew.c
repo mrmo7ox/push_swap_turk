@@ -6,7 +6,7 @@
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 14:05:21 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/02/17 10:01:19 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/02/25 20:42:43 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ t_node	*ft_lstnew(int value)
 	if (t_list == NULL)
 		return (NULL);
 	t_list->value = value;
-	t_list->rank = 0;
 	t_list->next = NULL;
 	return (t_list);
 }

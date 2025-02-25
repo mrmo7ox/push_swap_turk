@@ -6,7 +6,7 @@
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 13:25:25 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/01/18 16:05:31 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/02/25 16:47:49 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	rra(t_node **a, int print)
 	tmp->next->next = first;
 	*a = tmp->next;
 	tmp->next = NULL;
+	set_position(*a);
 	if (print)
 		write(1, "rra\n", 4);
 }
@@ -44,6 +45,7 @@ void	rrb(t_node **b, int print)
 	tmp->next->next = first;
 	*b = tmp->next;
 	tmp->next = NULL;
+	set_position(*b);
 	if (print)
 		write(1, "rrb\n", 4);
 }
@@ -52,6 +54,8 @@ void	rrr(t_node **a, t_node **b, int print)
 {
 	rra(a, 0);
 	rrb(b, 0);
+	set_position(*a);
+	set_position(*b);
 	if (print)
 		write(1, "rrr\n", 4);
 }
